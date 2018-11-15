@@ -6,7 +6,7 @@ MagicMirror Module - detecting 3D gesture with GroveGesture Sensor(PAJ7620u2)
 
 
 ## Hardware
-![image]()
+![image](/Gesture_sensor_3.png)
 - Grove Gesture Sensor (PAJ7620u2)
   - The sensor on Grove - Gesture is PAJ7620U2 that integrates gesture recognition function with general I2C interface into a single chip. It can recognize 9 basic gestures, and these gestures information can be simply accessed via the I2C bus.
   - price: $10~20USD
@@ -39,6 +39,7 @@ It works as 3D gesture sensor similar with `Skywriter` or `Flick!`, but definite
 - GND	(GPIO PIN 4) : GND
 - SDA	(GPIO PIN 3) : SDA
 - SCL	(GPIO PIN 5) : SCL
+![](/IMG_0747.jpg)
 
 ### Install H/W
 - Go to Raspberry config program, set I2C (I2C_1) as enabled. Then shutdown.
