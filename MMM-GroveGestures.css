@@ -1,0 +1,33 @@
+#GROVEGESTURE {
+
+}
+
+#GROVEGESTURE.visible {
+  display:block;
+}
+
+#GROVEGESTURE.non_visible {
+  display:none;
+}
+
+#GESTURE_DISP {
+  display:none;
+  box-sizing: border-box;
+  border-radius:20px;
+  height:40px;
+  background-color:#FFF;
+  padding:10px 20px;
+  line-height: 100%;
+  vertical-align: top;
+  font-size:20px;
+  color:#FFF;
+  background-color:rgba(64,64,255,0.8);
+}
+
+#GESTURE_DISP.visible {
+  display:block;
+}
+
+#GESTURE_DISP {
+  display:none;
+}
