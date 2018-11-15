@@ -120,7 +120,6 @@ python gesture_print.py
       */
     },
 
-
     gestureMapFromTo: { //When your sensor is installed with rotated direction, you can calibrate with this.
       "Up": "UP",
       "Down": "DOWN",
@@ -132,9 +131,6 @@ python gesture_print.py
       "anti-clockwise": "ANTICLOCKWISE",
       "wave": "WAVE"
     },
-
-    activateNotification: "GG_START",
-    deactivateNotification: "GG_STOP",
 
     defaultNotification: "GESTURE",
     pythonPath: "/usr/bin/python", // your python path
