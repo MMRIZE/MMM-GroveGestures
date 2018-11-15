@@ -29,9 +29,9 @@ else:
 
 class gesture:
 	#Registers and variables for the gesture sensor
-	GES_REACTION_TIME		=.400				# You can adjust the reaction time according to the actual circumstance.
-	GES_ENTRY_TIME			=.600				# When you want to recognize the Forward/Backward gestures, your gestures' reaction time must less than GES_ENTRY_TIME(0.8s).
-	GES_QUIT_TIME			=.900
+	GES_REACTION_TIME		=.200				# You can adjust the reaction time according to the actual circumstance.
+	GES_ENTRY_TIME			=.400				# When you want to recognize the Forward/Backward gestures, your gestures' reaction time must less than GES_ENTRY_TIME(0.8s).
+	GES_QUIT_TIME			=.800
 
 	BANK0 = 0
 	BANK1 = 1
