@@ -14,18 +14,20 @@ MagicMirror Module - detecting 3D gesture with GroveGesture Sensor(PAJ7620u2)
   - detection range : 5 ~ 10cm / non-touch
   - size : 20mm X 20mm
 
-It works as 3D gesture sensor similar with `Skywriter` or `Flick!`, but definitely small, flat, and non-HAT. It could be fit for bezel-frame of MagicMirror. Soldering is not needed.
+
+Unfortunately, due to it's short range and theory of electro-magnetic field, this sensor will not be used beneath Spymirror. But under the thin wooden, plastic or normal glass, it will work.
+It works as 3D gesture sensor similar with `Skywriter` or `Flick!`, but definitely small, flat, and non-HAT. It could fit for bezel-frame of MagicMirror. Soldering is not needed.
 
 ### Comparison
-- vs. PIR motion sensor, ultrasonic sensor, CAM motion detection
-  - PROS: more gestures
-  - CONS: short range
+- vs. PIR sensor, ultrasonic sensor, CAM motion detection
+  - **PROS**: more gestures
+  - **CONS**: short range
 - vs. Skywriter, Flick!
-  - PROS: small
-  - CONS: touch, tap gestures are not supported
+  - **PROS**: small
+  - **CONS**: touch, tap gestures are not supported
 - vs. CAM gesture recognition
-  - PROS: light, easy, low CPU
-  - CONS: short range, not so COOL
+  - **PROS**: light, easy, low CPU
+  - **CONS**: short range, not so COOL
 
 
 ### REQUIREMENT
@@ -41,12 +43,13 @@ It works as 3D gesture sensor similar with `Skywriter` or `Flick!`, but definite
 ### Install H/W
 - Go to Raspberry config program, set I2C (I2C_1) as enabled. Then shutdown.
 - Connect Sensor and RPI with cable. Then power on.
-- Check `sudo i2cdetect -y 1` or install it. After installation rebooting might be needed.
+- Check `sudo i2cdetect -y 1` or install it.
 ```
 sudo apt-get update
 sudo apt-get install i2c-tools
 ```
-- After `sudo i2cdetect -y 1`, if you can see `73` on the matrix of result, H/W is installed rightly.
+- After installation rebooting might be needed.
+- Try again `sudo i2cdetect -y 1`, if you can see `73` on the matrix of result, H/W is installed properly.
 
 
 ## Installation of Module
