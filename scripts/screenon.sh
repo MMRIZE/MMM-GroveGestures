@@ -1,1 +1,1 @@
-xset -display :0 dpms force on
+vcgencmd display_power 1
