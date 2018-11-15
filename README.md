@@ -35,8 +35,8 @@ It works as 3D gesture sensor similar with `Skywriter` or `Flick!`, but definite
 - 1 x 4pin Female jumper cable
 
 ### Pin Connect (I2C 1)
-- 5V (GPIO PIN 2)	: VCC
-- GND	(GPIO PIN 4) : GND
+- 5V (GPIO PIN 4)	: VCC
+- GND	(GPIO PIN 6) : GND
 - SDA	(GPIO PIN 3) : SDA
 - SCL	(GPIO PIN 5) : SCL
 ![](/IMG_0747.jpg)
