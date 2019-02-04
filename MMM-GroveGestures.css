@@ -21,11 +21,16 @@
   vertical-align: top;
   font-size:20px;
   color:#FFF;
-  background-color:rgba(64,64,255,0.8);
+  background-color:rgba(64,255,64,0.8);
 }
 
 #GESTURE_DISP.visible {
   display:block;
+}
+
+#GESTURE_DISP.finish {
+  display:block;
+  background-color:rgba(64,64,255,0.8);
 }
 
 #GESTURE_DISP {

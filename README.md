@@ -4,6 +4,13 @@ MagicMirror Module - detecting 3D gesture with GroveGesture Sensor(PAJ7620u2)
 ## Screenshot
 [![2.1.0 demo](https://img.youtube.com/vi/BcpZvkcrfHU/0.jpg)](https://youtu.be/BcpZvkcrfHU)
 
+## NEW UPDATES
+**1.1.0**
+- `commandSet` is added.
+  - You can change set of your commands on runtime by notification.
+  - See the `commandSet` section.
+
+
 
 ## Hardware
 ![image](/Gesture_sensor_3.png)
@@ -99,7 +106,7 @@ python gesture_print.py
     visible: true, //Recognized gesture sequence will be displayed on position
 
     idleTimer: 1000*60*30, // `0` for disable, After this time from last gesture, onIdle will be executed.
-    onIdle { // See command section
+    onIdle: { // See command section
       moduleExec: {
         module: [],
         exec: (module, gestures) => {
@@ -136,42 +143,49 @@ python gesture_print.py
     defaultNotification: "GESTURE",
     pythonPath: "/usr/bin/python", // your python path
 
-    command: {
-      "FORWARD-BACKWARD": {
-        notificationExec: {
-          notification: "ASSISTANT_ACTIVATE",
-        }
-      },
-      "LEFT-RIGHT": {
-        notificationExec: {
-          notification: "ASSISTANT_CLEAR"
-        }
-      },
-      "CLOCKWISE": {
-        moduleExec: {
-          module: [],
-          exec: (module) => {
-            module.hide(1000, null, {lockstring:"GESTURE"})
+    defaultCommandSet: "default",
+    commandSet: {
+      "default": {
+        "FORWARD-BACKWARD": {
+          notificationExec: {
+            notification: "ASSISTANT_ACTIVATE",
+            payload: null
           }
-        }
-      },
-      "ANTICLOCKWISE": {
-        moduleExec: {
-          module: [],
-          exec: (module) => {
-            module.show(1000, null, {lockstring:"GESTURE"})
+        },
+        "LEFT-RIGHT": {
+          notificationExec: {
+            notification: "ASSISTANT_CLEAR",
+            payload:null,
           }
-        }
-      },
-      "LEFT": {
-        notificationExec: {
-          notification: "ARTICLE_PREVIOUS"
-        }
-      },
-      "RIGHT": {
-        notificationExec: {
-          notification: "ARTICLE_NEXT"
-        }
+        },
+        "CLOCKWISE": {
+          moduleExec: {
+            module: [],
+            exec: (module, gestures) => {
+              module.hide(1000, null, {lockstring:"GESTURE"})
+            }
+          }
+        },
+        "ANTICLOCKWISE": {
+          moduleExec: {
+            module: [],
+            exec: (module, gestures) => {
+              module.show(1000, null, {lockstring:"GESTURE"})
+            }
+          }
+        },
+        "LEFT": {
+          notificationExec: {
+            notification: "ARTICLE_PREVIOUS",
+            payload: null,
+          }
+        },
+        "RIGHT": {
+          notificationExec: {
+            notification: "ARTICLE_NEXT",
+            payload: null,
+          }
+        },
       },
     },
   }
@@ -228,3 +242,38 @@ You can modify, remove or create these gestures commands in `config.js`
     sequence: "UP-DOWN-LEFT", // detected gesture sequence until now
   }
   ```
+
+### CommandSet
+You can define set of command for your purpose. The set would be changed by notification on runtime
+
+- Example
+```js
+defaultCommandSet: "DEFAULT_MODE",
+commandSet: {
+  "DEFAULT_MODE": {
+    "LEFT": {
+      notificationExec: {
+        notification: "PAGE_INCREMENT",
+        payload: null
+      }
+    },
+  },
+  "NEWS_MODE": {
+    "LEFT": {
+      notificationExec: {
+        notification: "ARTICLE_NEXT",
+        payload: null
+      }
+    },
+  }
+},
+commandSetTrigger: {
+  "GG_CHANGE_COMMANDSET_NEWSMODE": "NEWS_MODE",
+  "GG_CHANGE_COMMANDSET_BY_PAYLOAD": (payload) => { // You can use callback function to change set with conditional payload values.
+    return payload.commandSetName
+  }
+},
+```
+There are two sets of command - `DEFAULT_MODE` and `NEWS_MODE`. The "LEFT" command of each set could be defined differently.
+You can change the set by notification `GG_CHANGE_COMMANDSET_NEWSMODE` and `GG_CHANGE_COMMANDSET` which are defined in `commandSetTrigger`. If `GG_CHANGE_COMMANDSET_NEWSMODE` notification is arrived, the current set of commands will be changed to `NEWS_MODE`.
+Of course, you can redefine the names of trigger notifications or commandSets.

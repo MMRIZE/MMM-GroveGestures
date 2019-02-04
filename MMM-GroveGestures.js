@@ -2,81 +2,70 @@
 Module.register("MMM-GroveGestures", {
   defaults: {
     verbose:false,
-    recognitionTimeout: 1000,
+    recognitionTimeout: 1500,
     cancelGesture: "WAVE",
     visible: true,
     idleTimer: 1000*60*30, // `0` for disable
     onIdle: {
-      moduleExec: {
-        module: [],
-        exec: (module) => {
-          module.hide(1000, null, {lockstring:"GESTURE"})
-        }
+      notificationExec: {
+        notification: "GESTURE_IDLE",
       }
     },
     onDetected: {
       notificationExec: {
         notification: "GESTURE_DETECTED",
       },
-      /*
-      moduleExec: {
-        module: [],
-        exec: (module) => {
-          module.show(1000, null, {lockstring:"GESTURE"})
-        }
-      }
-      */
     },
-    command: {
-      "FORWARD-BACKWARD": {
-        notificationExec: {
-          notification: "ASSISTANT_ACTIVATE",
-          payload: null
-        }
-      },
-      "LEFT-RIGHT": {
-        notificationExec: {
-          notification: "ASSISTANT_CLEAR",
-          payload:null,
-        }
-      },
-      "CLOCKWISE": {
-        moduleExec: {
-          module: [],
-          exec: (module, gestures) => {
-            module.hide(1000, null, {lockstring:"GESTURE"})
+    defaultCommandSet: "default",
+    commandSet: {
+      "default": {
+        "FORWARD-BACKWARD": {
+          notificationExec: {
+            notification: "ASSISTANT_ACTIVATE",
+            payload: null
           }
-        }
-      },
-      "ANTICLOCKWISE": {
-        moduleExec: {
-          module: [],
-          exec: (module, gestures) => {
-            module.show(1000, null, {lockstring:"GESTURE"})
+        },
+        "LEFT-RIGHT": {
+          notificationExec: {
+            notification: "ASSISTANT_CLEAR",
+            payload:null,
           }
-        }
+        },
+        "CLOCKWISE": {
+          moduleExec: {
+            module: [],
+            exec: (module, gestures) => {
+              module.hide(1000, null, {lockstring:"GESTURE"})
+            }
+          }
+        },
+        "ANTICLOCKWISE": {
+          moduleExec: {
+            module: [],
+            exec: (module, gestures) => {
+              module.show(1000, null, {lockstring:"GESTURE"})
+            }
+          }
+        },
+        "LEFT": {
+          notificationExec: {
+            notification: "ARTICLE_PREVIOUS",
+            payload: null,
+          }
+        },
+        "RIGHT": {
+          notificationExec: {
+            notification: "ARTICLE_NEXT",
+            payload: null,
+          }
+        },
       },
-      "LEFT": {
-        notificationExec: {
-          notification: "ARTICLE_PREVIOUS",
-          payload: null,
-        }
-      },
-      "RIGHT": {
-        notificationExec: {
-          notification: "ARTICLE_NEXT",
-          payload: null,
-        }
-      },
-      /*
-      "CLOCKWISE-CLOCKWISE": {
-        shellExec: "~/MagicMirror/modules/MMM-GroveGestures/scripts/screenoff.sh"
-      },
-      "ANTICLOCKWISE-ANTICLOCKWISE": {
-        shellExec: "~/MagicMirror/modules/MMM-GroveGestures/scripts/screenon.sh"
-      },
-      */
     },
+
+    command: {},
+    commandSetTrigger: {
+    },
+
 
     gestureMapFromTo: {
       "Up": "UP",
@@ -116,10 +105,18 @@ Module.register("MMM-GroveGestures", {
   },
 
   notificationReceived: function(noti, payload, sender) {
-    switch(noti) {
-      case "DOM_OBJECTS_CREATED":
-        this.prepare()
-        break
+    if (noti == "DOM_OBJECTS_CREATED") {
+      this.prepare()
+    }
+
+    var commandSetName = ""
+    if (this.config.commandSetTrigger.hasOwnProperty(noti)) {
+      if (typeof this.config.commandSetTrigger[noti] == "function") {
+        commandSetName = this.config.commandSetTrigger[noti](payload)
+      } else {
+        commandSetName = this.config.commandSetTrigger[noti]
+      }
+      this.setCommandSet(commandSetName)
     }
   },
 
@@ -137,9 +134,7 @@ Module.register("MMM-GroveGestures", {
         if (gestures.sequence in this.config.command) {
           this.doCommand(this.config.command[gestures.sequence], gestures)
         }
-        setTimeout(()=>{
-          this.cancelCommand()
-        }, 1000)
+        //this.cancelCommand()
         break
       case "ONGOING":
         this.showCommand(gestures)
@@ -204,9 +199,17 @@ Module.register("MMM-GroveGestures", {
       var payload = (typeof command.notificationExec.payload == "undefined") ? gestures : command.notificationExec.payload
       this.sendNotification(noti, Object.assign({}, payload))
     }
+    this.cancelCommand()
   },
 
   prepare: function() {
+    this.setCommandSet(this.config.defaultCommandSet)
     this.sendSocketNotification("INIT", this.config)
+  },
+
+  setCommandSet: function(commandSetName) {
+    if (this.config.commandSet.hasOwnProperty(commandSetName)) {
+      this.config.command = Object.assign({}, this.config.commandSet[commandSetName])
+    }
   }
 })
