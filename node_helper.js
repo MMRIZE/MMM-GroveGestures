@@ -60,13 +60,18 @@ module.exports = NodeHelper.create({
     })
     this.shell.on("error", (message)=>{
       this.shell.end()
-
       if (!message.traceback.search("KeyboardInterrupt")) {
         this.log(message)
       } else {
         this.log("Keyboard Interrupted")
       }
       this.log("[GESTURE] Gesture script is finished.")
+    })
+    this.shell.on("close", ()=>{
+      setTimeout(()=>{
+        this.log("[GESTURE] Python script is terminated. It will restart soon.")
+        this.job(config)
+      }, 500)
     })
   },
 
