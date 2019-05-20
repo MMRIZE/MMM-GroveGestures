@@ -197,7 +197,7 @@ Module.register("MMM-GroveGestures", {
     if (command.hasOwnProperty("notificationExec")) {
       var noti = (command.notificationExec.notification) ? command.notificationExec.notification : this.config.defaultNotification
       var payload = (typeof command.notificationExec.payload == "undefined") ? gestures : command.notificationExec.payload
-      this.sendNotification(noti, Object.assign({}, payload))
+      this.sendNotification(noti, payload)
     }
     this.cancelCommand()
   },
