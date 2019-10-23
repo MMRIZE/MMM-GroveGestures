@@ -1,6 +1,6 @@
 {
   "name": "mmm-grovegesture",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "MagicMirror module - detect gesture with GroveGesture sensor(PAJ7620u2)",
   "main": "MMM-AssistantMk2.js",
   "keywords": [

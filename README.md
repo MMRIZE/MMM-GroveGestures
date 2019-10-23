@@ -5,6 +5,9 @@ MagicMirror Module - detecting 3D gesture with GroveGesture Sensor(PAJ7620u2)
 [![2.1.0 demo](https://img.youtube.com/vi/BcpZvkcrfHU/0.jpg)](https://youtu.be/BcpZvkcrfHU)
 
 ## NEW UPDATES
+**1.1.1**
+- Fix: bug of `moduleExec`
+
 **1.1.0**
 - `commandSet` is added.
   - You can change set of your commands on runtime by notification.

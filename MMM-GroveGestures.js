@@ -147,7 +147,6 @@ Module.register("MMM-GroveGestures", {
     if (this.config.idleTimer > 0) {
       clearTimeout(this.idleTimer)
       this.idleTimer = setTimeout(()=>{
-        console.log("idleTimeout")
         this.doCommand(this.config.onIdle, gestures)
       }, this.config.idleTimer)
     }
@@ -188,8 +187,8 @@ Module.register("MMM-GroveGestures", {
         tm = []
       }
       var modules = MM.getModules().enumerate((module)=>{
-        if (tm.length == 0 || module.name in tm) {
-          console.log("EXEC", command.moduleExec.exec)
+        if (tm.length == 0 || tm.includes(module.name)) {
+          //console.log("EXEC", command.moduleExec.exec)
           command.moduleExec.exec(module, gestures)
         }
       })
