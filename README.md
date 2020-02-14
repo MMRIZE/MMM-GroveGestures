@@ -280,3 +280,8 @@ commandSetTrigger: {
 There are two sets of command - `DEFAULT_MODE` and `NEWS_MODE`. The "LEFT" command of each set could be defined differently.
 You can change the set by notification `GG_CHANGE_COMMANDSET_NEWSMODE` and `GG_CHANGE_COMMANDSET` which are defined in `commandSetTrigger`. If `GG_CHANGE_COMMANDSET_NEWSMODE` notification is arrived, the current set of commands will be changed to `NEWS_MODE`.
 Of course, you can redefine the names of trigger notifications or commandSets.
+
+
+## Issues;
+- `[GESTURE] Python script is terminated. It will restart soon.` : If you too often meet this error, adjust your i2c bus speed. (Default would be 100000, try 10000 or 32000.)
+https://www.raspberrypi-spy.co.uk/2018/02/change-raspberry-pi-i2c-bus-speed/
