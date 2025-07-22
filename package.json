@@ -2,7 +2,7 @@
   "name": "mmm-grovegesture",
   "version": "1.1.1",
   "description": "MagicMirror module - detect gesture with GroveGesture sensor(PAJ7620u2)",
-  "main": "MMM-AssistantMk2.js",
+  "main": "MMM-GroveGestures.js",
   "keywords": [
     "magic mirror",
     "module",
@@ -13,17 +13,16 @@
   "author": "eouia",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/eouia/MMM-GroveGestures/issues"
+    "url": "https://github.com/MMRIZE/MMM-GroveGestures/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eouia/MMM-GroveGestures.git"
+    "url": "git+https://github.com/MMRIZE/MMM-GroveGestures.git"
   },
   "dependencies": {
     "python-shell": "^1.0.6"
   },
-  "homepage": "https://github.com/eouia/MMM-GroveGestures#readme",
-  "devDependencies": {},
+  "homepage": "https://github.com/MMRIZE/MMM-GroveGestures#readme",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   }
