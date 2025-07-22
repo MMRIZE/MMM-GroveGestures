@@ -35,7 +35,7 @@ Module.register("MMM-GroveGestures", {
           moduleExec: {
             module: [],
             exec: (module, gestures) => {
-              module.hide(1000, null, {lockstring:"GESTURE"})
+              module.hide(1000, () => { }, { lockString: "GESTURE" })
             }
           }
         },

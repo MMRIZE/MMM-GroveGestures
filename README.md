@@ -115,7 +115,7 @@ python gesture_print.py
       moduleExec: {
         module: [],
         exec: (module, gestures) => {
-          module.hide(1000, null, {lockstring:"GESTURE"})
+          module.hide(1000, () => { }, { lockString: "GESTURE" })
         }
       }
     },
@@ -167,7 +167,7 @@ python gesture_print.py
           moduleExec: {
             module: [],
             exec: (module, gestures) => {
-              module.hide(1000, null, {lockstring:"GESTURE"})
+              module.hide(1000, () => { }, { lockString: "GESTURE" })
             }
           }
         },
