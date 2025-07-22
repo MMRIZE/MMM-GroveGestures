@@ -64,9 +64,10 @@ sudo apt-get install i2c-tools
 
 
 ## Installation of Module
-```
+
+```bash
 cd ~/MagicMirror/modules
-git clone https://github.com/eouia/MMM-GroveGestures
+git clone https://github.com/MMRIZE/MMM-GroveGestures
 cd MMM-GroveGestures
 npm install
 cd scripts
@@ -75,20 +76,21 @@ chmod +x *.sh
 You might need to modify `/scripts/*.sh` files for your environment.
 
 After installation of module,
-```
+
+```bash
 cd ~/MagicMirror/modules/MMM-GroveGestures/py
 cp grove_gesture_sensor.py.RPI grove_gesture_sensor.py
 ```
 
 You can test your sensor with this;
-```
+```bash
 cd ~/MagicMirror/modules/MMM-GroveGestures/py
 python gesture_print.py
 ```
 
 ## Configuration
 ### Simple Version
-```
+```js
 {
   module: "MMM-GroveGestures",
   position: "top_right",
@@ -97,7 +99,7 @@ python gesture_print.py
 ```
 
 ### Details and default
-```
+```js
 {
   module: "MMM-GroveGestures",
   position: "top_right",
@@ -195,7 +197,9 @@ python gesture_print.py
 },
 ```
 ### Command
+
 ### Prepared Gestures
+
 You can modify, remove or create these gestures commands in `config.js`
 - **LEFT** : show previous article of default `newsfeed`
 - **RIGHT** : show next article of default `newsfeed`
@@ -205,7 +209,8 @@ You can modify, remove or create these gestures commands in `config.js`
 - **LEFT-RIGHT** : stop youtube video(result of `MMM-AssistantMk2`) playing.
 
 #### Structure of `command` in Configuration
-```
+
+```js
 "GESTURE-SEQUENCE" : {
   shellExec: "...",
   notificationExec: { ... },
@@ -215,11 +220,11 @@ You can modify, remove or create these gestures commands in `config.js`
 - You can define command with gesture(**LEFT**) or gesture sequence (**LEFT-LEFT-UP**)
 - 3 kinds of execution are available (be usable lonely or together)
   - `shellExec` : You can execute this `String` as shell command
-  ```
+  ```js
   shellExec: "sudo reboot now"
   ```
   - `notificationExec` : You can send notification with this. If payload is not defined, `gestures` Object will be used by default. If you want null value as payload, just set `payload:null`.
-  ```
+  ```js
   notificationExec: {
     notification: "SHOW_ALERT",
     payload: {
@@ -229,7 +234,7 @@ You can modify, remove or create these gestures commands in `config.js`
   }
   ```
   - `moduleExec` : You can control Module and it's method. `exec` is function which has `module` and `gestures` objects as arguments.
-  ```
+  ```js
   moduleExec: {
     module: ["clock", "newsfeed"], // `[]` will be all modules.
     exec: (module, gestures) => {
@@ -238,7 +243,7 @@ You can modify, remove or create these gestures commands in `config.js`
   }
   ```
   - `gestures` Object
-  ```
+  ```js
   gestures: {
     status: "FINISH", // "FINISH", "ONGOING", "CANCEL"
     last: "LEFT", // Last detected gesture
@@ -247,6 +252,7 @@ You can modify, remove or create these gestures commands in `config.js`
   ```
 
 ### CommandSet
+
 You can define set of command for your purpose. The set would be changed by notification on runtime
 
 - Example
@@ -277,11 +283,13 @@ commandSetTrigger: {
   }
 },
 ```
+
 There are two sets of command - `DEFAULT_MODE` and `NEWS_MODE`. The "LEFT" command of each set could be defined differently.
 You can change the set by notification `GG_CHANGE_COMMANDSET_NEWSMODE` and `GG_CHANGE_COMMANDSET` which are defined in `commandSetTrigger`. If `GG_CHANGE_COMMANDSET_NEWSMODE` notification is arrived, the current set of commands will be changed to `NEWS_MODE`.
 Of course, you can redefine the names of trigger notifications or commandSets.
 
 
-## Issues;
+## Issues
+
 - `[GESTURE] Python script is terminated. It will restart soon.` : If you too often meet this error, adjust your i2c bus speed. (Default would be 100000, try 10000 or 32000.)
 https://www.raspberrypi-spy.co.uk/2018/02/change-raspberry-pi-i2c-bus-speed/
